@@ -1,0 +1,33 @@
+version: '1.0'
+
+services:
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'randomrootpassword'
+      MYSQL_DATABASE: 'nestjs_typeorm'
+      MYSQL_HOST: 'mysql'
+      MYSQL_PORT: 3306
+      MYSQL_USERNAME: 'root'
+      MYSQL_PASSWORD: 'randomrootpassword'
+      MYSQL_SYNCHRONIZE: true
+    ports:
+      - '3306:3306'
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'mysql']
+      timeout: 5s
+      retries: 10
+      interval: 3s
+  # nestjs_api:
+  #   build:
+  #     context: ./api/
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '3000:3000'
+  #   environment:
+  #     - PORT=3000
+  #     - NODE_ENV=development
+  #     - MYSQL_HOST=mysql
+  #   depends_on:
+  #     mysql:
+  #       condition: service_healthy
