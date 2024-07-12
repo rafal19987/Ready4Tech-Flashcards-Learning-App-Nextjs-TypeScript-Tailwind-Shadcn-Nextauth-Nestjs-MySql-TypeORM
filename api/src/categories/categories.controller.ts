@@ -1,6 +1,16 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Delete,
+  Param,
+  Patch,
+} from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CreateQuestionDto } from './dto/create-question.dto';
 // import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
@@ -17,18 +27,37 @@ export class CategoriesController {
     return this.categoriesService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.categoriesService.findOne(+id);
-  // }
+  @Get(':categoryName')
+  async findOne(@Param('categoryName') categoryName: string) {
+    return this.categoriesService.findOne(categoryName);
+  }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateCategoryDto: UpdateCategoryDto) {
-  //   return this.categoriesService.update(+id, updateCategoryDto);
-  // }
+  @Delete(':id')
+  async removeOne(@Param('id') id: string) {
+    return this.categoriesService.removeOne(+id);
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.categoriesService.remove(+id);
-  // }
+  @Patch(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateCategoryDto: UpdateCategoryDto,
+  ) {
+    return this.categoriesService.update(+id, updateCategoryDto);
+  }
+
+  @Get(':categoryName/questions')
+  async findAllCategoryQuestions(@Param('categoryName') categoryName: string) {
+    return this.categoriesService.findAllCategoryQuestions(categoryName);
+  }
+
+  @Post(':categoryName/questions')
+  async createQuestion(
+    @Param('categoryName') categoryName: string,
+    @Body() createQuestionDto: CreateQuestionDto,
+  ) {
+    return this.categoriesService.createQuestion(
+      categoryName,
+      createQuestionDto,
+    );
+  }
 }
