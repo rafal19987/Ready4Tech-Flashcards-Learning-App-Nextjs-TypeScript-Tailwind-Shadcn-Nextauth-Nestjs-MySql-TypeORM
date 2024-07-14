@@ -3,6 +3,8 @@ import './globals.css';
 import { PageWrapper } from '@/components/shared/PageWrapper';
 import { MainWrapper } from '@/components/shared/MainWrapper';
 import { TailwindIndicator } from '@/components/shared/TailwindIndicator';
+import { PrevPageButton } from '@/components/shared/PrevPageButton';
+import { BreadcrumbNavigation } from '@/components/shared/BreadcrumbNavigation';
 
 export const metadata: Metadata = {
   title: 'Title',
@@ -18,7 +20,13 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <PageWrapper>
-          <MainWrapper>{children}</MainWrapper>
+          <MainWrapper>
+            <div className='w-full flex items-center justify-between pb-12'>
+              <BreadcrumbNavigation />
+              <PrevPageButton />
+            </div>
+            {children}
+          </MainWrapper>
         </PageWrapper>
         <TailwindIndicator />
       </body>
