@@ -47,7 +47,6 @@ const CategoryPage: React.FC<{
 
   return (
     <div className='flex flex-col'>
-      <PrevPageButton />
       {errorMessage === 'Category not found' ? (
         <span>Not found</span>
       ) : (
