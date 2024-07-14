@@ -29,7 +29,7 @@ export const CategoryItem: React.FC<{
         onClick={(e) => e.stopPropagation()}
         className='absolute bottom-0 right-0 rounded-none rounded-br-lg'
       >
-        <Link className='' href={`/${category.name}`}>
+        <Link className='' href={`categories/${category.name}`}>
           <svg
             width='15'
             height='15'
