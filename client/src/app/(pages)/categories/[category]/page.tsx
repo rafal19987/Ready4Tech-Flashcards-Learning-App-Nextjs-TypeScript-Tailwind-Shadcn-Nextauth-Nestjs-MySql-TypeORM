@@ -16,6 +16,8 @@ import {
 } from '@/components/shared/Dialog';
 import { Button } from '@/components/shared/Button';
 import { P } from '@/components/shared/typography/P';
+import { QuestionsListAccordion } from '@/components/shared/QuestionsListAccordion';
+import { CreateQuestionDialog } from '@/components/shared/CreateQuestionDialog';
 
 const CategoryPage: React.FC<{
   params: { category: string };
@@ -57,45 +59,8 @@ const CategoryPage: React.FC<{
               {questions.length} questions
             </P>
           </div>
-          <Accordion
-            type='single'
-            className='h-96 overflow-y-auto overflow-x-hidden mt-12'
-          >
-            {questions?.map((question) => (
-              <AccordionItem key={question.id} value={question.title}>
-                <AccordionTrigger>{question.title}</AccordionTrigger>
-                <AccordionContent>{question.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                size='icon'
-                variant='default'
-                className='rounded-full self-end mt-12 size-12 fixed bottom-24'
-              >
-                <svg
-                  width='15'
-                  height='15'
-                  viewBox='0 0 15 15'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    d='M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z'
-                    fill='currentColor'
-                    fill-rule='evenodd'
-                    clip-rule='evenodd'
-                  ></path>
-                </svg>
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <CreateQuestionForm />
-            </DialogContent>
-          </Dialog>
+          <QuestionsListAccordion questions={questions} />
+          <CreateQuestionDialog />
         </>
       )}
     </div>
