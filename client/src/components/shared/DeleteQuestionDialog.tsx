@@ -21,9 +21,7 @@ export const DeleteQuestionDialog: React.FC<{ question: Question }> = ({
 }) => {
   const pathname = usePathname();
   const router = useRouter();
-
   const categoryName = pathname.split('/')[2];
-  console.log(categoryName);
 
   const deleteQuestion = async (questionId: number) => {
     try {
@@ -45,7 +43,7 @@ export const DeleteQuestionDialog: React.FC<{ question: Question }> = ({
       <AlertDialogTrigger asChild>
         <Button
           size='icon'
-          variant='destructive'
+          variant='ghost'
           onClick={(e) => e.stopPropagation()}
           className=''
         >
