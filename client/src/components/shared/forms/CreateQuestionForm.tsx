@@ -28,6 +28,8 @@ type FormSchema = z.infer<typeof formSchema>;
 export const CreateQuestionForm: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const transforedPathname = pathname.split('/');
+  const categoryNameFromPathname = transforedPathname[2];
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,7 +42,7 @@ export const CreateQuestionForm: React.FC = () => {
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/categories${pathname}/questions`,
+        `http://localhost:3000/categories/${categoryNameFromPathname}/questions`,
         {
           method: 'POST',
           headers: {
