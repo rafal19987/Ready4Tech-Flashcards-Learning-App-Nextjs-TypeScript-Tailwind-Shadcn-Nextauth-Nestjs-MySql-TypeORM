@@ -1,8 +1,4 @@
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from './shared/Accordion';
+import { AccordionContent, AccordionItem, AccordionTrigger } from './Accordion';
 import type { Question } from '@/types';
 
 export const QuestionsListAccordionItem: React.FC<{ question: Question }> = ({
