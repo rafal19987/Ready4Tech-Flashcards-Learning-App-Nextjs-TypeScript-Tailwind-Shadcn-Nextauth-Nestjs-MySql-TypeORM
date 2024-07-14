@@ -6,12 +6,15 @@ import { EntityManager, Repository } from 'typeorm';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Question } from './entities/question.entity';
 import { CreateQuestionDto } from './dto/create-question.dto';
+import { UpdateQuestionDto } from './dto/update-question.dto';
 
 @Injectable()
 export class CategoriesService {
   constructor(
     @InjectRepository(Category)
     private readonly categoriesRepo: Repository<Category>,
+    @InjectRepository(Question)
+    private readonly questionsRepo: Repository<Question>,
     private readonly entityManager: EntityManager,
   ) {}
 
@@ -182,5 +185,56 @@ export class CategoriesService {
 
     // Save the updated category without the removed question
     return await this.categoriesRepo.save(category);
+  }
+
+  async updateQuestion(
+    categoryName: string,
+    questionId: number,
+    updateQuestionDto: UpdateQuestionDto,
+  ) {
+    const category = await this.categoriesRepo.findOne({
+      where: {
+        name: categoryName,
+      },
+      relations: {
+        questions: true,
+      },
+    });
+
+    if (!category)
+      throw new HttpException('Not found category', HttpStatus.NOT_FOUND);
+
+    const question = category.questions.find(
+      (question) => question.id === questionId,
+    );
+
+    if (!question)
+      throw new HttpException(
+        'Not found question in category',
+        HttpStatus.NOT_FOUND,
+      );
+
+    const questionTitle = updateQuestionDto.title;
+
+    const questionWithUpdatedTitleExist = await this.categoriesRepo
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.questions', 'questions')
+      .where('questions.title = :questionTitle', { questionTitle })
+      .andWhere('category.name = :categoryName', { categoryName })
+      .getOne();
+
+    if (questionWithUpdatedTitleExist)
+      throw new HttpException('Question already exist', HttpStatus.CONFLICT);
+
+    if (updateQuestionDto.title) {
+      question.title = updateQuestionDto.title;
+    }
+    if (updateQuestionDto.answer) {
+      question.answer = updateQuestionDto.answer;
+    }
+
+    await this.questionsRepo.save(question);
+
+    return question;
   }
 }

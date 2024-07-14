@@ -11,6 +11,7 @@ import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CreateQuestionDto } from './dto/create-question.dto';
+import { UpdateQuestionDto } from './dto/update-question.dto';
 // import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Controller('categories')
@@ -67,5 +68,18 @@ export class CategoriesController {
     @Param('questionId') questionId: string,
   ) {
     return this.categoriesService.deleteQuestion(categoryName, +questionId);
+  }
+
+  @Patch(':categoryName/questions/:questionId')
+  async updateQuestion(
+    @Param('categoryName') categoryName: string,
+    @Param('questionId') questionId: string,
+    @Body() updateQuestion: UpdateQuestionDto,
+  ) {
+    return this.categoriesService.updateQuestion(
+      categoryName,
+      +questionId,
+      updateQuestion,
+    );
   }
 }
