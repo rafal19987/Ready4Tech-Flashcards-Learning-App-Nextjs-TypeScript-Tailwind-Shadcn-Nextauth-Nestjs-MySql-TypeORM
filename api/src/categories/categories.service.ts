@@ -153,4 +153,34 @@ export class CategoriesService {
 
     return await this.categoriesRepo.save(category);
   }
+
+  async deleteQuestion(categoryName: string, questionId: number) {
+    const category = await this.categoriesRepo.findOne({
+      where: {
+        name: categoryName,
+      },
+      relations: {
+        questions: true,
+      },
+    });
+
+    if (!category)
+      throw new HttpException('Not found category', HttpStatus.NOT_FOUND);
+
+    const question = category.questions.filter(
+      (question) => question.id === questionId,
+    );
+
+    if (!question)
+      throw new HttpException(
+        'Not found question in category',
+        HttpStatus.NOT_FOUND,
+      );
+
+    // Remove the question from the category's questions array
+    category.questions = category.questions.filter((q) => q.id !== questionId);
+
+    // Save the updated category without the removed question
+    return await this.categoriesRepo.save(category);
+  }
 }

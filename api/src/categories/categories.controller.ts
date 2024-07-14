@@ -60,4 +60,12 @@ export class CategoriesController {
       createQuestionDto,
     );
   }
+
+  @Delete(':categoryName/questions/:questionId')
+  async deleteQuestion(
+    @Param('categoryName') categoryName: string,
+    @Param('questionId') questionId: string,
+  ) {
+    return this.categoriesService.deleteQuestion(categoryName, +questionId);
+  }
 }
