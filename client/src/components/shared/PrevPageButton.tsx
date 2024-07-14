@@ -1,12 +1,17 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Button } from './Button';
 
 export const PrevPageButton: React.FC<{ children?: React.ReactNode }> = ({
   children,
 }) => {
+  const pathname = usePathname();
   const router = useRouter();
+  const transformedPathname = pathname.split('/');
+  const isHomePage = transformedPathname[1] === '';
+
+  if (isHomePage) return null;
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
@@ -18,7 +23,7 @@ export const PrevPageButton: React.FC<{ children?: React.ReactNode }> = ({
       variant='ghost'
       onClick={handleClick}
       size='icon'
-      className='w-20 self-end'
+      className='w-20 self-end p-0'
     >
       <svg
         width='15'
