@@ -53,10 +53,14 @@ const CategoryPage: React.FC<{
         <>
           <Small>Category</Small>
           <div className='flex items-center justify-between'>
-            <H2 className='border-none'>{category}</H2>
-            <P className='[&:not(:first-child)]:mt-0 text-[#737373]'>
-              {questions.length} questions
-            </P>
+            <H2 className='border-none'>
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </H2>
+            {questions.length > 0 && (
+              <P className='[&:not(:first-child)]:mt-0 text-[#737373]'>
+                {questions.length} questions
+              </P>
+            )}
           </div>
           <QuestionsListAccordion questions={questions} />
           <CreateQuestionDialog />
