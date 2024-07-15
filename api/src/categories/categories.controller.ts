@@ -38,12 +38,12 @@ export class CategoriesController {
     return this.categoriesService.removeOne(+id);
   }
 
-  @Patch(':id')
+  @Patch(':categoryName')
   async update(
-    @Param('id') id: string,
+    @Param('categoryName') categoryName: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(+id, updateCategoryDto);
+    return this.categoriesService.update(categoryName, updateCategoryDto);
   }
 
   @Get(':categoryName/questions')

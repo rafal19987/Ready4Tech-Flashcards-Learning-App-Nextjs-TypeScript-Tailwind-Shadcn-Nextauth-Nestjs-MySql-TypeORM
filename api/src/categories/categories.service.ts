@@ -75,10 +75,10 @@ export class CategoriesService {
     await this.categoriesRepo.remove(category);
   }
 
-  async update(id: number, updateCategoryDto: UpdateCategoryDto) {
+  async update(categoryName: string, updateCategoryDto: UpdateCategoryDto) {
     const category = await this.categoriesRepo.findOne({
       where: {
-        id,
+        name: categoryName,
       },
     });
 
