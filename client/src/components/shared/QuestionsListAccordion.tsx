@@ -7,6 +7,13 @@ import { EditQuestionDialog } from './EditQuestionDialog';
 export const QuestionsListAccordion: React.FC<{
   questions: Question[];
 }> = ({ questions }) => {
+  if (questions.length < 1)
+    return (
+      <span className='text-center pt-12 font-bold text-xl text-neutral-300'>
+        Questions not added yet
+      </span>
+    );
+
   return (
     <Accordion
       type='single'
