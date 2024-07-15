@@ -15,12 +15,20 @@ import {
   FormLabel,
   FormMessage,
 } from '../RadixForm';
+import toast from 'react-hot-toast';
 
 const formSchema = z.object({
   name: z
     .string()
     .min(3, { message: 'Name can not contain less than 3 characters' })
-    .max(20, { message: 'Name can not contain more than 20 characters' }),
+    .max(20, { message: 'Name can not contain more than 20 characters' })
+    .transform((value) => value.trim())
+    .pipe(
+      z.string().min(3, {
+        message:
+          'This field can not contain only spacebars. It is required atleat 3 characters',
+      })
+    ),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -45,8 +53,11 @@ export const CreateCategoryForm: React.FC = () => {
         body: JSON.stringify(data),
       });
 
-      if (!res.ok) console.log(res);
+      if (!res.ok) {
+        if (res.status === 409) return toast.error('Category already exist');
+      }
 
+      toast.success('Category added');
       router.refresh();
     } catch (error) {
       console.error('Error:', error);

@@ -19,8 +19,26 @@ import {
 import { Input } from '../Input';
 
 const formSchema = z.object({
-  title: z.string().min(1, { message: 'This field is required' }),
-  answer: z.string().min(1, { message: 'This field is required' }),
+  title: z
+    .string()
+    .min(1, { message: 'This field is required' })
+    .transform((value) => value.trim())
+    .pipe(
+      z.string().min(1, {
+        message:
+          'This field can not contain only spacebars. It is required atleat 1 characters',
+      })
+    ),
+  answer: z
+    .string()
+    .min(1, { message: 'This field is required' })
+    .transform((value) => value.trim())
+    .pipe(
+      z.string().min(1, {
+        message:
+          'This field can not contain only spacebars. It is required atleat 1 characters',
+      })
+    ),
 });
 
 type FormSchema = z.infer<typeof formSchema>;

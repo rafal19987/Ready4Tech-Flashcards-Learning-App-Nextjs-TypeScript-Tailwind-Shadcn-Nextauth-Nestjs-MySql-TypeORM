@@ -19,8 +19,26 @@ import { Question } from '@/types';
 import toast from 'react-hot-toast';
 
 const formSchema = z.object({
-  title: z.string(),
-  answer: z.string(),
+  title: z
+    .string()
+    .min(1, { message: 'This field is required' })
+    .transform((value) => value.trim())
+    .pipe(
+      z.string().min(1, {
+        message:
+          'This field can not contain only spacebars. It is required atleat 1 characters',
+      })
+    ),
+  answer: z
+    .string()
+    .min(1, { message: 'This field is required' })
+    .transform((value) => value.trim())
+    .pipe(
+      z.string().min(1, {
+        message:
+          'This field can not contain only spacebars. It is required atleat 1 characters',
+      })
+    ),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -54,7 +72,10 @@ export const EditQuestionForm: React.FC<{ question: Question }> = ({
         }
       );
 
-      if (!res.ok) return toast.error('Something went wrong');
+      if (!res.ok) {
+        if (res.status === 409) return toast.error('Question already exists.');
+        return toast.error('Something went wrong');
+      }
 
       toast.success('Updated');
       return router.refresh();
