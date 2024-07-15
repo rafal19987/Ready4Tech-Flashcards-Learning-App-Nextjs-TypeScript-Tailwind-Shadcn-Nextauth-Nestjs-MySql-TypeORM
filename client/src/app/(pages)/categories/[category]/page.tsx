@@ -1,20 +1,6 @@
 import type { Question } from '@/types';
-import { CreateQuestionForm } from '@/components/shared/forms/CreateQuestionForm';
-import { PrevPageButton } from '@/components/shared/PrevPageButton';
 import { H2 } from '@/components/shared/typography/H2';
 import { Small } from '@/components/shared/typography/Small';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/shared/Accordion';
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from '@/components/shared/Dialog';
-import { Button } from '@/components/shared/Button';
 import { P } from '@/components/shared/typography/P';
 import { QuestionsListAccordion } from '@/components/shared/QuestionsListAccordion';
 import { CreateQuestionDialog } from '@/components/shared/CreateQuestionDialog';
