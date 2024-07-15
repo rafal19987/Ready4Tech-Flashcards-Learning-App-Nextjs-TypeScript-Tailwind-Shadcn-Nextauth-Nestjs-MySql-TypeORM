@@ -18,6 +18,7 @@ import { Button } from '@/components/shared/Button';
 import { P } from '@/components/shared/typography/P';
 import { QuestionsListAccordion } from '@/components/shared/QuestionsListAccordion';
 import { CreateQuestionDialog } from '@/components/shared/CreateQuestionDialog';
+import { EditCategoryDialog } from '@/components/shared/EditCategoryDialog';
 
 const CategoryPage: React.FC<{
   params: { category: string };
@@ -53,9 +54,12 @@ const CategoryPage: React.FC<{
         <>
           <Small>Category</Small>
           <div className='flex items-center justify-between'>
-            <H2 className='border-none'>
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </H2>
+            <div className='flex gap-2 items-start justify-between '>
+              <H2 className='border-none'>
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </H2>
+              <EditCategoryDialog />
+            </div>
             {questions.length > 0 && (
               <P className='[&:not(:first-child)]:mt-0 text-[#737373]'>
                 {questions.length} questions
