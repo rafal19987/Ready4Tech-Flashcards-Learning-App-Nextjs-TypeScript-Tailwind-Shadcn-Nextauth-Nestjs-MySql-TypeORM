@@ -14,12 +14,14 @@ import {
 import { Button } from './Button';
 import { Category } from '@/types';
 import { deleteCategory } from '@/app/actions/deleteCategory';
+import toast from 'react-hot-toast';
 
 export const DeleteCategoryDialog: React.FC<{ category: Category }> = ({
   category,
 }) => {
   const deleteCategoryHandler = async (id: number): Promise<any> => {
     await deleteCategory(id);
+    toast.success('Category deleted');
   };
 
   return (
