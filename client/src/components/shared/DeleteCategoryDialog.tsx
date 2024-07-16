@@ -34,6 +34,7 @@ export const DeleteCategoryDialog: React.FC<{ category: Category }> = ({
           className='rounded-none rounded-tr-lg'
         >
           <svg
+            className='w-4 h-auto 4xl:w-6'
             width='15'
             height='15'
             viewBox='0 0 15 15'

@@ -14,6 +14,7 @@ export const EditCategoryDialog: React.FC = () => {
       <DialogTrigger asChild>
         <Button size='icon' variant='ghost'>
           <svg
+            className='w-4 h-auto 4xl:w-6'
             width='20'
             height='20'
             viewBox='0 0 15 15'

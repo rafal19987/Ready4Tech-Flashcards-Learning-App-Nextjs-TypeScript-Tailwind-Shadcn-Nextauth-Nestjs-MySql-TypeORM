@@ -31,6 +31,7 @@ export const CategoryItem: React.FC<{
       >
         <Link className='' href={`categories/${category.name}`}>
           <svg
+            className='w-4 h-auto 4xl:w-6'
             width='15'
             height='15'
             viewBox='0 0 15 15'
