@@ -25,7 +25,7 @@ export const QuestionsListAccordion: React.FC<{
           <div className='col-span-11'>
             <QuestionsListAccordionItem question={question} />
           </div>
-          <div className='col-span-1 flex flex-col gap-2 h-full'>
+          <div className='col-span-1 flex flex-col gap-0 h-full items-center'>
             <DeleteQuestionDialog question={question} />
             <EditQuestionDialog question={question} />
           </div>
