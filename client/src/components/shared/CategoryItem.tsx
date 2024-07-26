@@ -2,34 +2,61 @@
 
 import Link from 'next/link';
 import type { Category } from '@/types';
-import { Button } from './Button';
 import { DeleteCategoryDialog } from './DeleteCategoryDialog';
+import { buttonVariants } from './Button';
 
 export const CategoryItem: React.FC<{
   category?: Category;
-}> = ({ category }) => {
+  isSelected: boolean;
+  selectCategory: (categoryName: string) => void;
+  isCategorySavedInLocalstorage: boolean;
+}> = ({
+  category,
+  isSelected,
+  selectCategory,
+  isCategorySavedInLocalstorage,
+}) => {
   if (!category) return null;
 
   return (
     <li
-      key={category.id}
-      className='w-full min-h-20 max-h-20  border rounded-xl hover:bg-slate-200 transition-all duration-300 relative'
+      className={`relative flex items-center justify-between w-full min-h-20 max-h-20 border rounded-xl hover:bg-green-300 transition-all duration-300 hover:cursor-pointer ${
+        isSelected && 'border-green-500'
+      }`}
+      onClick={() => selectCategory(category.name)}
     >
-      <div className='w-3/4 flex justify-between items-center h-full pl-6'>
+      {isCategorySavedInLocalstorage ? (
+        <div
+          className={`absolute -translate-y-5 left-20 w-fit h-10 py-1 px-2 border-green-500 border   bg-transparent transition-all duration-300 ${
+            isSelected && '  bg-white -translate-y-12 '
+          }`}
+        >
+          <span className='font-light'>Continue</span>
+        </div>
+      ) : null}
+
+      <div className='bg-black w-fit p-3 h-full flex items-center justify-center rounded-l-xl'>
+        <div
+          className={`bg-white w-8 rounded-full h-8 duration-300 transition-colors ${
+            isSelected && 'bg-green-400'
+          }`}
+        ></div>
+      </div>
+
+      <div className='w-full flex gap-2 items-center h-full grow  pl-6'>
         <span className='font-semibold text-lg'>{category.name}</span>
+        {'|'}
         <span className='font-semibold text-lg'>
-          {category.questions.length}
+          {category.questions.length} questions
         </span>
       </div>
-      <DeleteCategoryDialog category={category} />
-      <Button
-        asChild
-        size='icon'
-        variant='secondary'
-        onClick={(e) => e.stopPropagation()}
-        className='absolute bottom-0 right-0 rounded-none rounded-br-lg'
-      >
-        <Link className='' href={`categories/${category.name}`}>
+      <div className='flex items-center justify-center gap-3 h-full w-fit pr-3'>
+        <DeleteCategoryDialog category={category} />
+
+        <Link
+          className={buttonVariants({ variant: 'secondary', size: 'icon' })}
+          href={`categories/${category.name}`}
+        >
           <svg
             className='w-4 h-auto 4xl:w-6'
             width='15'
@@ -46,7 +73,7 @@ export const CategoryItem: React.FC<{
             ></path>
           </svg>
         </Link>
-      </Button>
+      </div>
     </li>
   );
 };
