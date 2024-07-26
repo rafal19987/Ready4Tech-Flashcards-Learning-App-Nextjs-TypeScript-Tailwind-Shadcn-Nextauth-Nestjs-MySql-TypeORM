@@ -26,12 +26,11 @@ export const DeleteCategoryDialog: React.FC<{ category: Category }> = ({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild className='absolute top-0 right-0'>
+      <AlertDialogTrigger asChild>
         <Button
           size='icon'
-          variant='destructive'
+          variant='secondary'
           onClick={(e) => e.stopPropagation()}
-          className='rounded-none rounded-tr-lg'
         >
           <svg
             className='w-4 h-auto 4xl:w-6'

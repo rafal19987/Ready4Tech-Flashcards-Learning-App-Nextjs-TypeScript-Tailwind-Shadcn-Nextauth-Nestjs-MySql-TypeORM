@@ -7,5 +7,5 @@ export async function deleteCategory(id: number) {
     method: 'DELETE',
   });
 
-  revalidatePath('/');
+  revalidatePath('/categories');
 }
