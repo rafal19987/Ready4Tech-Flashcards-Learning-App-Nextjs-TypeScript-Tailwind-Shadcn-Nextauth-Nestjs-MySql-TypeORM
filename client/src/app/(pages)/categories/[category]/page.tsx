@@ -5,6 +5,7 @@ import { P } from '@/components/shared/typography/P';
 import { QuestionsListAccordion } from '@/components/shared/QuestionsListAccordion';
 import { CreateQuestionDialog } from '@/components/shared/CreateQuestionDialog';
 import { EditCategoryDialog } from '@/components/shared/EditCategoryDialog';
+import { notFound } from 'next/navigation';
 
 const CategoryPage: React.FC<{
   params: { category: string };
@@ -31,6 +32,8 @@ const CategoryPage: React.FC<{
     console.log('error', error);
     questions = [];
   }
+
+  if (errorMessage === 'Category not found') return notFound();
 
   return (
     <div className='flex flex-col'>
