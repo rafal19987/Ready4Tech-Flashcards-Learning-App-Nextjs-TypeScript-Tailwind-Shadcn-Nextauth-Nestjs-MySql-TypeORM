@@ -15,7 +15,7 @@ const CategoryPage: React.FC<{
 
   try {
     const res = await fetch(
-      `http://localhost:3000/categories/${category}/questions`,
+      `${process.env.API_URL}/categories/${category}/questions`,
       {
         method: 'GET',
         cache: 'no-store',

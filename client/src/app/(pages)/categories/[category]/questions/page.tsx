@@ -10,7 +10,7 @@ const QuestionsPage: React.FC<{ params: { category: string } }> = async ({
 
   try {
     const res = await fetch(
-      `http://localhost:3000/categories/${category}/questions`,
+      `${process.env.API_URL}/categories/${category}/questions`,
       {
         method: 'GET',
         cache: 'no-store',

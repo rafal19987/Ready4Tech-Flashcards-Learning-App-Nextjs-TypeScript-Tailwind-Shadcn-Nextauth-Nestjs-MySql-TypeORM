@@ -60,7 +60,7 @@ export const CreateQuestionForm: React.FC = () => {
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/categories/${categoryNameFromPathname}/questions`,
+        `${process.env.NEXT_PUBLIC_API_URL}/categories/${categoryNameFromPathname}/questions`,
         {
           method: 'POST',
           headers: {

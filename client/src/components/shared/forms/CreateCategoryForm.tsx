@@ -44,7 +44,7 @@ export const CreateCategoryForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
-      const res = await fetch(`http://localhost:3000/categories`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

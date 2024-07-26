@@ -3,7 +3,7 @@
 import { revalidatePath } from 'next/cache';
 
 export async function deleteCategory(id: number) {
-  const res = await fetch(`http://localhost:3000/categories/${id}`, {
+  const res = await fetch(`${process.env.API_URL}/categories/${id}`, {
     method: 'DELETE',
   });
 

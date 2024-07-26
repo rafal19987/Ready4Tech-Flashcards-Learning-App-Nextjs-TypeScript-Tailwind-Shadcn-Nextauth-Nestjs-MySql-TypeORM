@@ -26,7 +26,7 @@ export const DeleteQuestionDialog: React.FC<{ question: Question }> = ({
   const deleteQuestion = async (questionId: number) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/categories/${categoryName}/questions/${questionId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/categories/${categoryName}/questions/${questionId}`,
         { method: 'DELETE' }
       );
 

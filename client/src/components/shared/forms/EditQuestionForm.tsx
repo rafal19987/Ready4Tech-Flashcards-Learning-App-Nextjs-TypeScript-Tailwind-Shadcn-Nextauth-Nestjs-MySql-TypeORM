@@ -61,7 +61,7 @@ export const EditQuestionForm: React.FC<{ question: Question }> = ({
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/categories/${categoryName}/questions/${question.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/categories/${categoryName}/questions/${question.id}`,
         {
           method: 'PATCH',
           headers: {

@@ -26,7 +26,7 @@ export const CategoriesList = () => {
   useEffect(() => {
     setLoading(true);
     (async () => {
-      const res = await fetch('http://localhost:3000/categories', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
         cache: 'no-store',
       });
       const categories: Category[] = await res.json();

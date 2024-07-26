@@ -51,7 +51,7 @@ export const EditCategoryNameForm: React.FC = () => {
   const onSubmit: SubmitHandler<FormSchema> = async (data) => {
     try {
       const res = await fetch(
-        `http://localhost:3000/categories/${categoryNameFromPathname}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/categories/${categoryNameFromPathname}`,
         {
           method: 'PATCH',
           headers: {
