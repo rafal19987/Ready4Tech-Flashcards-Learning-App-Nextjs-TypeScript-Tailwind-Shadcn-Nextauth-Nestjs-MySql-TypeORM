@@ -1,7 +1,10 @@
 'use client';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-import * as z from 'zod';
+import {
+  type EditCategoryInput,
+  editCategorySchema,
+} from '@/validations/category';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { Button } from '../Button';
@@ -18,29 +21,14 @@ import {
 } from '../RadixForm';
 import { Input } from '../Input';
 
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(1, { message: 'This field is required' })
-    .transform((value) => value.trim())
-    .pipe(
-      z.string().min(1, {
-        message:
-          'This field can not contain only spacebars. It is required atleat 1 characters',
-      })
-    ),
-});
-
-type FormSchema = z.infer<typeof formSchema>;
-
 export const EditCategoryNameForm: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const transforedPathname = pathname.split('/');
   const categoryNameFromPathname = transforedPathname[2];
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<EditCategoryInput>({
+    resolver: zodResolver(editCategorySchema),
     defaultValues: {
       name:
         categoryNameFromPathname.charAt(0).toUpperCase() +
@@ -48,7 +36,7 @@ export const EditCategoryNameForm: React.FC = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormSchema> = async (data) => {
+  const onSubmit: SubmitHandler<EditCategoryInput> = async (data) => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/categories/${categoryNameFromPathname}`,
