@@ -5,6 +5,7 @@ import { MainWrapper } from '@/components/shared/MainWrapper';
 import { TailwindIndicator } from '@/components/shared/TailwindIndicator';
 import { PrevPageButton } from '@/components/shared/PrevPageButton';
 import { BreadcrumbNavigation } from '@/components/shared/BreadcrumbNavigation';
+import { Providers } from './Providers';
 
 export const metadata: Metadata = {
   title: 'Title',
@@ -19,15 +20,17 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <PageWrapper>
-          <MainWrapper>
-            <div className='w-full flex items-center justify-between pb-12'>
-              <BreadcrumbNavigation />
-              <PrevPageButton />
-            </div>
-            {children}
-          </MainWrapper>
-        </PageWrapper>
+        <Providers>
+          <PageWrapper>
+            <MainWrapper>
+              <div className='w-full flex items-center justify-between pb-12'>
+                <BreadcrumbNavigation />
+                <PrevPageButton />
+              </div>
+              {children}
+            </MainWrapper>
+          </PageWrapper>
+        </Providers>
         <TailwindIndicator />
       </body>
     </html>
