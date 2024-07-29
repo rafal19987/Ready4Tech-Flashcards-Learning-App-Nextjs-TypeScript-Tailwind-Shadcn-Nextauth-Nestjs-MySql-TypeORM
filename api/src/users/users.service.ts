@@ -40,7 +40,7 @@ export class UsersService {
       .addSelect('user.password')
       .getOne();
 
-    console.log('USER:::', user);
+    console.log('User found');
 
     if (!user) throw new HttpException('User not exist', HttpStatus.NOT_FOUND);
 

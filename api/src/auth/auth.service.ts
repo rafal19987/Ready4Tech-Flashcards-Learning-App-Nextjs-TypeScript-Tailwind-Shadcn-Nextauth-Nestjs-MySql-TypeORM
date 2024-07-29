@@ -4,6 +4,7 @@ import { UsersService } from 'src/users/users.service';
 import { compare } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 
+const EXPIRE_TIME = 20 * 1000;
 @Injectable()
 export class AuthService {
   constructor(
@@ -29,6 +30,7 @@ export class AuthService {
           expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN!,
           secret: process.env.JWT_REFRESH_TOKEN_SECRET_KEY!,
         }),
+        expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
       },
     };
   }
@@ -38,7 +40,7 @@ export class AuthService {
       loginUserDto.email,
     );
 
-    console.log('user in validate', user);
+    console.log('User is valid');
 
     if (user && (await compare(loginUserDto.password, user.password))) {
       const { password, ...result } = user;
@@ -64,6 +66,7 @@ export class AuthService {
           expiresIn: process.env.JWT_REFRESH_TOKEN_EXPIRES_IN!,
           secret: process.env.JWT_REFRESH_TOKEN_SECRET_KEY!,
         }),
+        expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
       },
     };
   }
