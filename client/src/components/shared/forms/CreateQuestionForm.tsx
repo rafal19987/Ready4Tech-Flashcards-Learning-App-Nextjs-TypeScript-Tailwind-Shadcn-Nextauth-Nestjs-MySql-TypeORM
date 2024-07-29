@@ -1,7 +1,10 @@
 'use client';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-import * as z from 'zod';
+import {
+  type CreateQuestionInput,
+  createQuestionSchema,
+} from '@/validations/questions';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { Button } from '../Button';
@@ -18,46 +21,21 @@ import {
 } from '../RadixForm';
 import { Input } from '../Input';
 
-const formSchema = z.object({
-  title: z
-    .string()
-    .min(1, { message: 'This field is required' })
-    .transform((value) => value.trim())
-    .pipe(
-      z.string().min(1, {
-        message:
-          'This field can not contain only spacebars. It is required atleat 1 characters',
-      })
-    ),
-  answer: z
-    .string()
-    .min(1, { message: 'This field is required' })
-    .transform((value) => value.trim())
-    .pipe(
-      z.string().min(1, {
-        message:
-          'This field can not contain only spacebars. It is required atleat 1 characters',
-      })
-    ),
-});
-
-type FormSchema = z.infer<typeof formSchema>;
-
 export const CreateQuestionForm: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
   const transforedPathname = pathname.split('/');
   const categoryNameFromPathname = transforedPathname[2];
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CreateQuestionInput>({
+    resolver: zodResolver(createQuestionSchema),
     defaultValues: {
       title: '',
       answer: '',
     },
   });
 
-  const onSubmit: SubmitHandler<FormSchema> = async (data) => {
+  const onSubmit: SubmitHandler<CreateQuestionInput> = async (data) => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/categories/${categoryNameFromPathname}/questions`,

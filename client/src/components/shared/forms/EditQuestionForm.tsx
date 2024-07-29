@@ -16,32 +16,11 @@ import {
   FormMessage,
 } from '../RadixForm';
 import { Question } from '@/types';
+import {
+  type EditQuestionInput,
+  editQuestionSchema,
+} from '@/validations/questions';
 import toast from 'react-hot-toast';
-
-const formSchema = z.object({
-  title: z
-    .string()
-    .min(1, { message: 'This field is required' })
-    .transform((value) => value.trim())
-    .pipe(
-      z.string().min(1, {
-        message:
-          'This field can not contain only spacebars. It is required atleat 1 characters',
-      })
-    ),
-  answer: z
-    .string()
-    .min(1, { message: 'This field is required' })
-    .transform((value) => value.trim())
-    .pipe(
-      z.string().min(1, {
-        message:
-          'This field can not contain only spacebars. It is required atleat 1 characters',
-      })
-    ),
-});
-
-type FormSchema = z.infer<typeof formSchema>;
 
 export const EditQuestionForm: React.FC<{ question: Question }> = ({
   question,
@@ -50,15 +29,15 @@ export const EditQuestionForm: React.FC<{ question: Question }> = ({
   const router = useRouter();
   const categoryName = pathname.split('/')[2];
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<EditQuestionInput>({
+    resolver: zodResolver(editQuestionSchema),
     defaultValues: {
       title: question.title,
       answer: question.answer,
     },
   });
 
-  const onSubmit: SubmitHandler<FormSchema> = async (data) => {
+  const onSubmit: SubmitHandler<EditQuestionInput> = async (data) => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/categories/${categoryName}/questions/${question.id}`,
