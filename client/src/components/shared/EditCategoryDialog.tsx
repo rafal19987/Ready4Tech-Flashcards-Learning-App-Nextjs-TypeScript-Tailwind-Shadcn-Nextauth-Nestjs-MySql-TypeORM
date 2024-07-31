@@ -12,7 +12,7 @@ export const EditCategoryDialog: React.FC = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button size='icon' variant='ghost'>
+        <Button size='icon' variant='ghost' aria-label='Edit category name'>
           <svg
             className='w-4 h-auto 4xl:w-6'
             width='20'

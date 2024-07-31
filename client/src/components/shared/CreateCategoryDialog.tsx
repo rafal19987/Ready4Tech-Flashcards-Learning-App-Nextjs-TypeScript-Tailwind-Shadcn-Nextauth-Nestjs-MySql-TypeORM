@@ -14,6 +14,7 @@ export const CreateCategoryDialog: React.FC = () => {
           size='icon'
           variant='default'
           className='rounded-full self-end mt-12 size-12 fixed bottom-24'
+          aria-label='Create category'
         >
           <svg
             width='15'

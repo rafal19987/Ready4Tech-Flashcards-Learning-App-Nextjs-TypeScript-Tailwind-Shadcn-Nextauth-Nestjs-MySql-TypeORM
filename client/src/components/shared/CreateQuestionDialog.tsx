@@ -14,6 +14,7 @@ export const CreateQuestionDialog: React.FC = () => {
           size='icon'
           variant='default'
           className='rounded-full self-end mt-12 size-12 fixed bottom-24'
+          aria-label='Create Question'
         >
           <svg
             width='15'

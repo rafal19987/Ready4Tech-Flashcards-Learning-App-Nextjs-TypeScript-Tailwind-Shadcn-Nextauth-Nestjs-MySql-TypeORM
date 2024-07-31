@@ -46,6 +46,7 @@ export const DeleteQuestionDialog: React.FC<{ question: Question }> = ({
           variant='ghost'
           onClick={(e) => e.stopPropagation()}
           className=''
+          aria-label='Delete question'
         >
           <svg
             className='w-4 h-auto 4xl:w-6'

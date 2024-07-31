@@ -31,6 +31,7 @@ export const DeleteCategoryDialog: React.FC<{ category: Category }> = ({
           size='icon'
           variant='secondary'
           onClick={(e) => e.stopPropagation()}
+          aria-label='Delete category'
         >
           <svg
             className='w-4 h-auto 4xl:w-6'

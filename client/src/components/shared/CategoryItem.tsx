@@ -56,6 +56,7 @@ export const CategoryItem: React.FC<{
         <Link
           className={buttonVariants({ variant: 'secondary', size: 'icon' })}
           href={`categories/${category.name}`}
+          aria-label='Go to category setting'
         >
           <svg
             className='w-4 h-auto 4xl:w-6'
