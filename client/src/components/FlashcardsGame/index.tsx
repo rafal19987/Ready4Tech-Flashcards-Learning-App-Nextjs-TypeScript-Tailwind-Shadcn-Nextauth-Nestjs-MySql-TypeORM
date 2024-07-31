@@ -80,7 +80,7 @@ export const FlashcardsGame: React.FC<{
   return (
     <>
       <H2 className='border-none'>{category} questions</H2>
-      <div className='flex flex-col gap-6 items-center w-full'>
+      <div className='flex flex-col gap-6 items-center w-full max-w-md'>
         {questions.length > 1 ? (
           <Small>{`${questions.length - 1} questions left`}</Small>
         ) : (
