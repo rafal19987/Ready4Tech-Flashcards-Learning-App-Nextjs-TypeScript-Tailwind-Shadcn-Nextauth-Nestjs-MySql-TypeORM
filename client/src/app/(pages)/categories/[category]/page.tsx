@@ -36,7 +36,7 @@ const CategoryPage: React.FC<{
   if (errorMessage === 'Category not found') return notFound();
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col w-full'>
       {errorMessage === 'Category not found' ? (
         <span>Not found</span>
       ) : (
