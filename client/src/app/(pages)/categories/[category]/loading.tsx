@@ -5,8 +5,7 @@ import { Skeleton } from '@/components/shared/Skeleton';
 export default function Loading() {
   // You can add any UI inside Loading, including a Skeleton.
   return (
-    <div className='flex flex-col'>
-      <PrevPageButton />
+    <div className='flex flex-col w-full'>
       <Small>Category</Small>
       <div className='flex items-center justify-between w-full h-12 mt-6'>
         <Skeleton className='w-44 h-full' />
