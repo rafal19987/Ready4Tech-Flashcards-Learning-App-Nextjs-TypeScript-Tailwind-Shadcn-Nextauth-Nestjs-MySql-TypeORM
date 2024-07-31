@@ -48,7 +48,7 @@ export const CategoriesList = () => {
 
   return (
     <>
-      <ul className='flex flex-col gap-8 w-full overflow-y-auto py-8 h-[25rem] transition-all thinScrollbar border'>
+      <ul className='flex flex-col gap-8 w-full overflow-y-auto h-[25rem] transition-all thinScrollbar'>
         {categories?.map((category) => (
           <CategoryItem
             key={category.id}
