@@ -5,9 +5,9 @@ import Link from 'next/link';
 
 export default async function Home() {
   return (
-    <div className='flex flex-col h-full items-center justify-center'>
+    <div className='flex-grow flex flex-col h-full items-center justify-center'>
       <H1 className='text-center'>Preper yourself for tech interviews</H1>
-      <P className='text-center'>
+      <P className='text-center lg:w-2/3'>
         The king, seeing how much happier his subjects were, realized the error
         of his ways and repealed the joke tax.
       </P>
