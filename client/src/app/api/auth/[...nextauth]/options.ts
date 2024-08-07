@@ -9,7 +9,6 @@ async function refreshToken(token: JWT): Promise<JWT> {
       authorization: `Refresh ${token.backendTokens.refreshToken}`,
     },
   });
-  console.log('refreshed');
 
   const response = await res.json();
 
@@ -36,8 +35,6 @@ export const authOptions: NextAuthOptions = {
     },
 
     session: async ({ token, session }) => {
-      console.log('session:', session);
-      console.log('token', token);
       session.user = token.user;
       session.backendTokens = token.backendTokens;
 
