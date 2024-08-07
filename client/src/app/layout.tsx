@@ -14,8 +14,33 @@ import Link from 'next/link';
 import { Footer } from '@/components/shared/Footer';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
   title: 'Ready4Tech | Home',
-  description: 'Ready4Tech | Prepare yourslef for Tech Interviews',
+  description: 'Ready4Tech | Prepare yourself for Tech Interviews',
+  creator: 'Rafał Izdebski',
+  keywords: [
+    'Interview',
+    'Questions',
+    'Javascript',
+    'React',
+    'Typescript',
+    'Frontend',
+    'Developer',
+    'Junior',
+    'Mid',
+    'Senior',
+    'Prepare',
+    'Tech',
+    'Interviews',
+  ],
+  openGraph: {
+    type: 'website',
+    title: 'Ready4Tech',
+    description: 'Prepare yourself for Tech Interviews',
+    locale: 'en_US',
+    url: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+    images: '/opengraph-image.jpg',
+  },
 };
 
 export default function RootLayout({
