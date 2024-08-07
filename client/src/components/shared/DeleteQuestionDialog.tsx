@@ -1,5 +1,7 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,26 +13,25 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/shared/AlertDialog';
+import { deleteQuestion } from '@/app/actions/deleteQuestion';
 import { Button } from './Button';
-import { usePathname, useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { Question } from '@/types';
+import { type Question } from '@/types';
 
 export const DeleteQuestionDialog: React.FC<{ question: Question }> = ({
   question,
 }) => {
+  const { data: session } = useSession();
   const pathname = usePathname();
   const router = useRouter();
+
+  if (!session) return null;
+
   const categoryName = pathname.split('/')[2];
 
-  const deleteQuestion = async (questionId: number) => {
+  const deleteQuestionHandler = async (id: number) => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/categories/${categoryName}/questions/${questionId}`,
-        { method: 'DELETE' }
-      );
-
-      if (!res.ok) toast.error('something bad happend');
+      await deleteQuestion(categoryName, id);
       toast.success('Question deleted');
       return router.refresh();
     } catch (error) {
@@ -44,7 +45,6 @@ export const DeleteQuestionDialog: React.FC<{ question: Question }> = ({
         <Button
           size='icon'
           variant='ghost'
-          onClick={(e) => e.stopPropagation()}
           className=''
           aria-label='Delete question'
         >
@@ -74,7 +74,7 @@ export const DeleteQuestionDialog: React.FC<{ question: Question }> = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteQuestion(question.id)}>
+          <AlertDialogAction onClick={() => deleteQuestionHandler(question.id)}>
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>
