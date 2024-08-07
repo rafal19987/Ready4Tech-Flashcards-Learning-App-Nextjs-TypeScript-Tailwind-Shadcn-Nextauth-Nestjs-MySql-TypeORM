@@ -13,7 +13,6 @@ export const CategoriesList = () => {
 
   const selectCategory = (categoryName: string) => {
     setSelectedCategory(categoryName);
-    console.log(selectedCategory);
   };
 
   const isCategorySavedInLocalstorage = (categoryName: string): boolean => {
@@ -37,7 +36,7 @@ export const CategoriesList = () => {
 
   if (loading) return <span>Loading</span>;
 
-  if (categories.length < 1)
+  if (categories.length < 0)
     return (
       <div className='flex flex-col gap-4 w-full overflow-y-hidden h-96'>
         <span className='text-center font-bold text-xl'>
@@ -53,6 +52,7 @@ export const CategoriesList = () => {
           <CategoryItem
             key={category.id}
             category={category}
+            canSelect={category.questions.length > 0}
             selectCategory={selectCategory}
             isSelected={selectedCategory === category.name}
             isCategorySavedInLocalstorage={isCategorySavedInLocalstorage(
@@ -61,14 +61,15 @@ export const CategoriesList = () => {
           />
         ))}
       </ul>
-      {selectedCategory && (
+      {(categories.find((category) => category.name === selectedCategory)
+        ?.questions.length || 0) > 0 ? (
         <Link
           className={buttonVariants({ variant: 'default', size: 'lg' })}
           href={`/categories/${selectedCategory}/questions`}
         >
           Start
         </Link>
-      )}
+      ) : null}
     </>
   );
 };
