@@ -1,3 +1,5 @@
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import {
   Dialog,
   DialogContent,
@@ -6,7 +8,11 @@ import {
 import { Button } from './Button';
 import { CreateQuestionForm } from './forms/CreateQuestionForm';
 
-export const CreateQuestionDialog: React.FC = () => {
+export const CreateQuestionDialog: React.FC = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) return null;
+
   return (
     <Dialog>
       <DialogTrigger asChild>

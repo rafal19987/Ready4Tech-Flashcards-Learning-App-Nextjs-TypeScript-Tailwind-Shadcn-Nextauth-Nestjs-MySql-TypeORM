@@ -1,3 +1,5 @@
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import {
   Dialog,
   DialogContent,
@@ -6,7 +8,11 @@ import {
 import { CreateCategoryForm } from '@/components/shared/forms/CreateCategoryForm';
 import { Button } from './Button';
 
-export const CreateCategoryDialog: React.FC = () => {
+export const CreateCategoryDialog: React.FC = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) return null;
+
   return (
     <Dialog>
       <DialogTrigger asChild>

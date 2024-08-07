@@ -1,5 +1,6 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,17 +20,21 @@ import toast from 'react-hot-toast';
 export const DeleteCategoryDialog: React.FC<{ category: Category }> = ({
   category,
 }) => {
+  const { data: session } = useSession();
+
   const deleteCategoryHandler = async (id: number): Promise<any> => {
     await deleteCategory(id);
     toast.success('Category deleted');
   };
+
+  if (!session) return null;
 
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button
           size='icon'
-          variant='secondary'
+          variant='ghost'
           onClick={(e) => e.stopPropagation()}
           aria-label='Delete category'
         >

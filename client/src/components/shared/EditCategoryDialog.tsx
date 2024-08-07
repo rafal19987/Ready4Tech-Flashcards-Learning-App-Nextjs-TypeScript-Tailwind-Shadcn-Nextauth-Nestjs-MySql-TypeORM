@@ -1,5 +1,5 @@
-'use client';
-
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import {
   Dialog,
   DialogContent,
@@ -8,7 +8,11 @@ import {
 import { Button } from './Button';
 import { EditCategoryNameForm } from './forms/EditCategoryNameForm';
 
-export const EditCategoryDialog: React.FC = () => {
+export const EditCategoryDialog: React.FC = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) return null;
+
   return (
     <Dialog>
       <DialogTrigger asChild>

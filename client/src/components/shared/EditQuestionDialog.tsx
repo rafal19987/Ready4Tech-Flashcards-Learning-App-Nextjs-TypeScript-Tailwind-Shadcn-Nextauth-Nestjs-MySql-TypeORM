@@ -1,5 +1,5 @@
-'use client';
-
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import {
   Dialog,
   DialogContent,
@@ -9,16 +9,19 @@ import { Button } from './Button';
 import { EditQuestionForm } from './forms/EditQuestionForm';
 import { Question } from '@/types';
 
-export const EditQuestionDialog: React.FC<{ question: Question }> = ({
+export const EditQuestionDialog: React.FC<{ question: Question }> = async ({
   question,
 }) => {
+  const session = await getServerSession(authOptions);
+
+  if (!session) return null;
+
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button
           size='icon'
           variant='ghost'
-          onClick={(e) => e.stopPropagation()}
           className=''
           aria-label='Edit question'
         >
