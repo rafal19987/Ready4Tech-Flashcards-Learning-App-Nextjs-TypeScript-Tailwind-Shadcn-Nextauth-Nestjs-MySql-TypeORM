@@ -7,12 +7,14 @@ import { buttonVariants } from './Button';
 
 export const CategoryItem: React.FC<{
   category?: Category;
+  canSelect: boolean;
   isSelected: boolean;
   selectCategory: (categoryName: string) => void;
   isCategorySavedInLocalstorage: boolean;
 }> = ({
   category,
   isSelected,
+  canSelect,
   selectCategory,
   isCategorySavedInLocalstorage,
 }) => {
@@ -20,10 +22,12 @@ export const CategoryItem: React.FC<{
 
   return (
     <li
-      className={`relative flex items-center justify-between w-full min-h-20 max-h-20 border rounded-xl hover:bg-green-300 transition-all duration-300 hover:cursor-pointer ${
-        isSelected && 'border-green-500'
-      }`}
-      onClick={() => selectCategory(category.name)}
+      className={`relative flex items-center justify-between w-full min-h-20 max-h-20 border rounded-xl  transition-all duration-300 ${
+        canSelect ? 'hover:cursor-pointer' : 'hover:cursor-not-allowed'
+      } `}
+      onClick={() => {
+        canSelect ? selectCategory(category.name) : null;
+      }}
     >
       {isCategorySavedInLocalstorage ? (
         <div
@@ -35,18 +39,32 @@ export const CategoryItem: React.FC<{
         </div>
       ) : null}
 
-      <div className='bg-black w-fit p-3 h-full flex items-center justify-center rounded-l-xl'>
+      <div
+        className={`w-fit p-3 h-full flex items-center justify-center rounded-l-xl ${
+          canSelect ? 'bg-black' : 'bg-neutral-300'
+        }`}
+      >
         <div
-          className={`bg-white w-8 rounded-full h-8 duration-300 transition-colors ${
-            isSelected && 'bg-green-400'
+          className={`w-8 rounded-full h-8 duration-300 transition-colors ${
+            isSelected ? 'bg-green-400' : 'bg-white'
           }`}
         ></div>
       </div>
 
       <div className='w-full flex gap-2 items-center h-full grow  pl-6'>
-        <span className='font-semibold text-lg'>{category.name}</span>
-        {'|'}
-        <span className='font-semibold text-lg'>
+        <span
+          className={`font-semibold text-lg ${
+            canSelect ? 'text-black' : 'text-neutral-300'
+          }`}
+        >
+          {category.name} {'|'}
+        </span>
+
+        <span
+          className={`font-semibold text-lg ${
+            canSelect ? 'text-black' : 'text-neutral-300'
+          }`}
+        >
           {category.questions.length} questions
         </span>
       </div>
@@ -54,7 +72,7 @@ export const CategoryItem: React.FC<{
         <DeleteCategoryDialog category={category} />
 
         <Link
-          className={buttonVariants({ variant: 'secondary', size: 'icon' })}
+          className={buttonVariants({ variant: 'ghost', size: 'icon' })}
           href={`categories/${category.name}`}
           aria-label='Go to category setting'
         >
