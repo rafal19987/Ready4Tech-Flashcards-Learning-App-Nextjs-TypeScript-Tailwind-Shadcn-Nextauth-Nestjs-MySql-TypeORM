@@ -29,7 +29,7 @@ export const FlashcardAnswer: React.FC<props> = ({
         <div className='absolute top-24 -left-10 rotate-90 flex flex-col gap-2 w-fit h-fit '>
           <H4 className='text-white text-4xl'>Learning app</H4>
           <P className='text-white text-lg [&:not(:first-child)]:mt-0'>
-            Preper youreself
+            Prepare youreself
           </P>
         </div>
 

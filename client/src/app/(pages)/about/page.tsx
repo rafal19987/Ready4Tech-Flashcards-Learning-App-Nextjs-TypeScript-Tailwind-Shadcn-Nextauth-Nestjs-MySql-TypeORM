@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import image from '@/assets/images/cv-review.jpg';
+import image from '@/assets/images/cv-review.avif';
 import { H2 } from '@components/shared/typography/H2';
 import { P } from '@components/shared/typography/P';
 import { H3 } from '@components/shared/typography/H3';
@@ -18,7 +18,7 @@ const AboutPage: React.FC = () => {
     <section className='space-y-8 pb-24'>
       <div className='space-y-4'>
         <div className='space-y-2'>
-          <Small>Preper yourself</Small>
+          <Small>Prepare yourself</Small>
           <H2>Interviews are stressful</H2>
           <P className='leading-0 [&:not(:first-child)]:mt-0'>
             Have you ever been stressed before an exam? Stress accompanies us at
@@ -92,7 +92,7 @@ const AboutPage: React.FC = () => {
             <Link
               href='https://github.com/'
               target='_blank'
-              referrerPolicy='no-referrer'
+              rel='noopener noreferrer'
               aria-label={`Linkedin profile of author`}
               className={buttonVariants({ variant: 'outline' })}
             >
@@ -103,7 +103,7 @@ const AboutPage: React.FC = () => {
             <Link
               href='https://www.linkedin.com/'
               target='_blank'
-              referrerPolicy='no-referrer'
+              rel='noopener noreferrer'
               aria-label={`Linkedin profile of author`}
               className={buttonVariants({ variant: 'outline' })}
             >
@@ -113,7 +113,7 @@ const AboutPage: React.FC = () => {
           <li>
             <Link
               href='mailto:rizdebski29@gmail.com'
-              referrerPolicy='no-referrer'
+              rel='noopener noreferrer'
               aria-label={`Email rizdebski29@gmail.com`}
               className={buttonVariants({ variant: 'outline' })}
             >
