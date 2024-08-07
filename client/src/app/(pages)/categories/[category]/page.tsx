@@ -1,3 +1,5 @@
+import { Metadata, ResolvingMetadata } from 'next';
+import { notFound } from 'next/navigation';
 import type { Question } from '@/types';
 import { H2 } from '@/components/shared/typography/H2';
 import { Small } from '@/components/shared/typography/Small';
@@ -5,10 +7,26 @@ import { P } from '@/components/shared/typography/P';
 import { QuestionsListAccordion } from '@/components/shared/QuestionsListAccordion';
 import { CreateQuestionDialog } from '@/components/shared/CreateQuestionDialog';
 import { EditCategoryDialog } from '@/components/shared/EditCategoryDialog';
-import { notFound } from 'next/navigation';
+
+type Params = {
+  category: string;
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
+  const category = params.category;
+
+  return {
+    title: `Ready4Tech | ${category} interview questions list`,
+    description: `Ready4Tech | ${category} interview questions are tricky, but with good preparation, you will walk through the tech interview smoothly and confidently.`,
+  };
+}
 
 const CategoryPage: React.FC<{
-  params: { category: string };
+  params: Params;
 }> = async ({ params: { category } }) => {
   let questions: Question[] | [] = [];
   let errorMessage: string | null = null;
