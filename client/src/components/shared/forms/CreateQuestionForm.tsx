@@ -91,7 +91,11 @@ export const CreateQuestionForm: React.FC = () => {
             <FormItem>
               <FormLabel>Answer</FormLabel>
               <FormControl>
-                <Input placeholder='Question`s answer' {...field} />
+                <Input
+                  placeholder='Question`s answer'
+                  type='textarea'
+                  {...field}
+                />
               </FormControl>
               <FormDescription>This is question`s answer.</FormDescription>
               <FormMessage />

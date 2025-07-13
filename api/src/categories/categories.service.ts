@@ -1,6 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as csv from 'csv-parser';
+import * as fs from 'fs';
 import { Category } from './entities/category.entity';
 import { EntityManager, Repository } from 'typeorm';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -236,5 +238,65 @@ export class CategoriesService {
     await this.questionsRepo.save(question);
 
     return question;
+  }
+
+  // ################ IMPORT QUESTIONS FROM CSV FILE ##################
+  async importQuestionsFromCsv(categoryName: string, filePath: string) {
+    const category = await this.categoriesRepo.findOne({
+      where: { name: categoryName },
+      relations: { questions: true },
+    });
+
+    if (!category) {
+      throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
+    }
+    const questions = [];
+
+    async () => {
+      fs.createReadStream(filePath)
+        .pipe(csv())
+        .on('data', async (row) => {
+          if (!row.title || !row.answer) {
+            return;
+          }
+
+          const title = row.title;
+          const answer = row.answer;
+
+          const isQuestionExist = await this.categoriesRepo
+            .createQueryBuilder('category')
+            .leftJoinAndSelect('category.questions', 'questions')
+            .where('questions.title = :title', { title })
+            .andWhere('category.name = :categoryName', { categoryName })
+            .getOne();
+
+          console.log(isQuestionExist);
+
+          if (isQuestionExist) return;
+
+          const createQuestionDto: CreateQuestionDto = {
+            title,
+            answer,
+          };
+
+          const question = new Question(createQuestionDto);
+
+          question.category = category;
+          questions.push(question);
+        })
+        .on('end', async () => {
+          try {
+            await this.questionsRepo.save(questions);
+
+            return {
+              status: HttpStatus.CREATED,
+              message: 'Questions created',
+              questions,
+            };
+          } catch (error) {
+            throw new HttpException(error, error.status);
+          }
+        });
+    };
   }
 }

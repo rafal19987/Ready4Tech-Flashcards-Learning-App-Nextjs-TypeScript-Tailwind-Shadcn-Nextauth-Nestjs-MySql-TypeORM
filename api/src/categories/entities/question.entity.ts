@@ -7,7 +7,7 @@ export class Question extends AbstractEntity<Question> {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ type: 'text' })
   answer: string;
 
   @ManyToOne(() => Category, (category) => category.questions, {
